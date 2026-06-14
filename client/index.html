@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Together</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-body">
+    <div class="glass-card main-auth">
+        <h1 class="logo">WATCH <span class="accent">TOGETHER</span></h1>
+        <p>Real-time synced playback, video calling, and live chat.</p>
+        
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Enter your display name" required>
+        </div>
+        
+        <div class="actions">
+            <button id="btn-create" class="btn primary">Create New Room</button>
+            <div class="divider"><span>OR</span></div>
+            <div class="input-group row">
+                <input type="text" id="room-code-input" placeholder="Paste Room Code">
+                <button id="btn-join" class="btn secondary">Join</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script>
+        document.getElementById('btn-create').addEventListener('click', () => {
+            const user = document.getElementById('username').value;
+            if(!user) return alert('Enter a username');
+            localStorage.setItem('wt_username', user);
+            window.location.href = `/${uuid.v4()}`;
+        });
+
+        document.getElementById('btn-join').addEventListener('click', () => {
+            const user = document.getElementById('username').value;
+            const code = document.getElementById('room-code-input').value;
+            if(!user || !code) return alert('Enter username and room code');
+            localStorage.setItem('wt_username', user);
+            window.location.href = `/${code}`;
+        });
+    </script>
+</body>
+</html>

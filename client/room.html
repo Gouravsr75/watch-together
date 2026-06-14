@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Room</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <header class="top-header glass-card">
+            <div class="logo-small">WATCH <span class="accent">TOGETHER</span></div>
+            <div class="room-info">
+                <span>Room Code: <strong id="display-room-code">...</strong></span>
+                <button id="btn-copy-code" class="btn micro">Copy</button>
+            </div>
+            <div class="status-indicators">
+                <span id="user-count">👥 1</span>
+                <span id="host-badge" class="hidden badge">HOST</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="video-container" id="video-wrapper">
+                
+                <div id="upload-overlay" class="upload-ui glass-card">
+                    <h2>Upload a Movie to Start</h2>
+                    <input type="file" id="movie-upload" accept="video/mp4,video/webm,video/x-matroska">
+                    <progress id="upload-progress" value="0" max="100" class="hidden"></progress>
+                    <p id="upload-status" class="status-text"></p>
+                </div>
+
+                <video id="main-player" controls preload="auto" class="hidden"></video>
+            </div>
+
+            <div class="video-grid-container">
+                <div id="video-grid" class="video-grid">
+                    </div>
+            </div>
+        </main>
+
+        <aside class="sidebar glass-card">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('chat')">Chat</button>
+                <button class="tab" onclick="switchTab('users')">Users</button>
+            </div>
+            
+            <div id="chat-panel" class="panel-content">
+                <div id="chat-messages" class="messages-container"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button id="send-chat" class="btn primary small">Send</button>
+                </div>
+            </div>
+
+            <div id="users-panel" class="panel-content hidden">
+                <ul id="user-list" class="user-list"></ul>
+            </div>
+        </aside>
+
+        <div class="floating-controls glass-card">
+            <button id="btn-mic" class="control-btn active">🎤</button>
+            <button id="btn-cam" class="control-btn active">📷</button>
+            <button id="btn-screen" class="control-btn">💻</button>
+            <div class="spacer"></div>
+            <button id="btn-leave" class="control-btn danger">Leave</button>
+        </div>
+
+        <div id="toast-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="socket.js"></script>
+    <script src="chat.js"></script>
+    <script src="webrtc.js"></script>
+</body>
+</html>
