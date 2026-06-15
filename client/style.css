@@ -184,67 +184,85 @@ progress { width: 100%; margin-top: 15px; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
 /* =========================================
-   MOBILE RESPONSIVE DESIGN (THE FIX)
+   BULLETPROOF MOBILE RESPONSIVE DESIGN
 ========================================= */
 @media (max-width: 850px) {
-  body { overflow: hidden; /* Stop whole page scrolling on mobile */ }
+    /* Stop the whole page from scrolling awkwardly */
+    body { 
+        overflow: hidden !important; 
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
 
-  .app-layout {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* Fill exactly the phone screen */
-  }
+    .app-layout { 
+        display: flex; 
+        flex-direction: column; 
+        height: 100dvh; /* dvh handles mobile browser URL bars perfectly */
+        width: 100vw;
+    }
 
-  .main-content {
-    flex: none; /* Don't stretch main content */
-  }
+    /* 1. Main Video Area: Fixed at top */
+    .main-content { 
+        flex: none;
+        height: auto;
+    }
+    
+    .video-container {
+        height: 35dvh; /* Takes exactly 35% of the mobile screen height */
+        background: #000;
+        width: 100%;
+    }
+    
+    #main-player {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Ensures movie doesn't stretch */
+    }
 
-  /* 1. Video stays fixed at the top */
-  .video-container {
-    height: 30vh; /* Takes up top 30% of screen */
-    background: #000;
-  }
-  #main-player {
-    height: 100%;
-    max-height: none;
-  }
+    /* 2. WebRTC Video Grid: Tucked right under the video */
+    .video-grid-container {
+        height: 120px; 
+        min-height: 120px;
+        padding: 5px;
+        background: #111;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    
+    .video-grid {
+        display: flex; /* Switches to a horizontal scrollable row on mobile */
+        gap: 8px;
+        height: 100%;
+    }
+    
+    .cam-wrapper {
+        min-width: 150px;
+        height: 100%;
+        flex-shrink: 0;
+    }
 
-  /* 2. WebRTC Cameras right below video */
-  .video-grid-container {
-    height: 120px; /* Smaller cameras on phone */
-    min-height: 120px;
-  }
+    /* 3. Sidebar (Chat/Users): Takes up the rest of the screen */
+    .sidebar { 
+        flex: 1; /* Automatically fills remaining space */
+        border-left: none; 
+        border-top: 1px solid var(--glass-border); 
+        margin-bottom: 70px; /* Leaves exact space for the bottom floating controls */
+        position: relative;
+    }
 
-  /* 3. Chat takes up the remaining middle space */
-  .sidebar {
-    flex: 1; /* Stretch chat to fill empty space */
-    border-left: none;
-    border-top: 1px solid var(--glass-border);
-    margin-bottom: 75px; /* Leave space for floating bottom controls */
-    height: auto;
-  }
+    /* 4. Bottom Controls: Fixed at bottom, full width */
+    .floating-controls {
+        width: 90%;
+        bottom: 15px;
+        padding: 8px 15px;
+        justify-content: space-between;
+        background: rgba(20, 20, 20, 0.95); /* Less transparent on mobile */
+    }
 
-  /* 4. Controls sit at the very bottom */
-  .floating-controls {
-    width: 95%;
-    bottom: 10px;
-    padding: 10px 15px;
-    justify-content: space-between;
-  }
-  .control-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
-  }
-
-  /* Landing Page specific mobile tweaks */
-  .main-auth {
-    padding: 30px 20px;
-  }
-  .input-group.row {
-    flex-direction: column;
-  }
-  .input-group.row button {
-    width: 100%;
-  }
+    .control-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
 }
