@@ -265,4 +265,24 @@ progress { width: 100%; margin-top: 15px; }
         height: 42px;
         font-size: 1.1rem;
     }
+  /* Add this INSIDE your existing @media (max-width: 850px) block */
+
+  .upload-ui {
+    padding: 20px 15px; /* Padding ko adha kar diya */
+    width: 85%; /* Screen ke edges se thoda gap rakhne ke liye */
+    max-width: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Box ko strictly center lock karne ke liye */
+  }
+
+  .upload-ui h2 {
+    font-size: 1.2rem; /* Heading thodi choti aur neat kar di */
+    margin-bottom: 12px;
+  }
+
+  .upload-ui input[type="file"] {
+    font-size: 0.8rem; /* Button ko phone ke hisaab se scale down kiya */
+    width: 100%;
+  }
 }
