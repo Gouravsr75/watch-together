@@ -3,11 +3,14 @@ const peers = {}; // map of socketId -> RTCPeerConnection
 const iceQueues = {}; // Prevent race conditions by queuing ICE candidates
 let localStream = null;
 
-// Better STUN servers for reliable connections
+// BETTER STUN SERVERS FOR CROSS-DEVICE CONNECTIONS
 const config = { 
     'iceServers': [
         { 'urls': 'stun:stun.l.google.com:19302' },
-        { 'urls': 'stun:stun1.l.google.com:19302' }
+        { 'urls': 'stun:stun1.l.google.com:19302' },
+        { 'urls': 'stun:stun2.l.google.com:19302' },
+        { 'urls': 'stun:stun3.l.google.com:19302' },
+        { 'urls': 'stun:stun4.l.google.com:19302' }
     ] 
 };
 
